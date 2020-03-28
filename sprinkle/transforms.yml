@@ -1,0 +1,9 @@
+---
+transforms:
+  - '*'
+  - '*app'
+  - '*site'
+  - '*time'
+  - 'go*'
+  - 'get*'
+  - 'lets *'
