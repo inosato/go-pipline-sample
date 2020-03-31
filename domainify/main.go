@@ -13,10 +13,17 @@ import (
 
 const allowedChars = "abcdefghijklmnopqrstuvwxyz01234567890_-"
 
+var defaultTlds []string = []string{
+	"com",
+	"net",
+}
+
 func main() {
 	flag.Parse()
 	tlds := flag.Args()
-	fmt.Println(tlds)
+	if len(tlds) == 0 {
+		tlds = defaultTlds
+	}
 
 	rand.Seed(time.Now().UTC().UnixNano())
 	s := bufio.NewScanner(os.Stdin)
