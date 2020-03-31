@@ -14,10 +14,20 @@ import (
 
 const otherWord = "*"
 
+var defaultTransform []string = []string{
+	"*",
+	"go ",
+	"app",
+	"*site",
+	"*time",
+}
+
 var transforms []string = []string{}
 
 func main() {
-	configTransform()
+	if err := configTransform(); err != nil {
+		transforms = defaultTransform
+	}
 	rand.Seed(time.Now().UTC().UnixNano())
 	s := bufio.NewScanner(os.Stdin)
 	for s.Scan() {
@@ -26,18 +36,19 @@ func main() {
 	}
 }
 
-func configTransform() {
+func configTransform() error {
 	var v struct {
 		Transforms []string
 	}
-	buf, err := ioutil.ReadFile("./transforms.yml")
+	buf, err := ioutil.ReadFile("./sprinkle/transforms.yml")
 	if err != nil {
 		fmt.Println(err)
-		return
+		return err
 	}
 	if err := yaml.Unmarshal(buf, &v); err != nil {
 		fmt.Println(err)
-		return
+		return err
 	}
 	transforms = v.Transforms
+	return nil
 }
