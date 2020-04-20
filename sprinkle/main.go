@@ -40,7 +40,7 @@ func configTransform() error {
 	var v struct {
 		Transforms []string
 	}
-	buf, err := ioutil.ReadFile("./sprinkle/transforms.yml")
+	buf, err := ioutil.ReadFile("../sprinkle/transforms.yml")
 	if err != nil {
 		fmt.Println(err)
 		return err
